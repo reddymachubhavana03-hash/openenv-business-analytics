@@ -1,0 +1,26 @@
+{
+  "task_id": "easy_001",
+  "difficulty": "easy",
+  "business_question": "What is total revenue last month?",
+  "dataset_schema": {
+    "date": "datetime",
+    "region": "string",
+    "revenue": "float"
+  },
+  "sample_data": [
+    {"date": "2025-01-01", "region": "APAC", "revenue": 1200},
+    {"date": "2025-01-02", "region": "EMEA", "revenue": 900},
+    {"date": "2025-01-03", "region": "NA", "revenue": 1500}
+  ],
+  "available_metrics": ["revenue"],
+  "constraints": ["last_month"],
+  "ground_truth": {
+    "kpis": ["revenue"],
+    "filters": {
+      "date": "last_month"
+    },
+    "aggregation": "sum",
+    "group_by": [],
+    "expected_answer": "sum(revenue where date in last_month)"
+  }
+}

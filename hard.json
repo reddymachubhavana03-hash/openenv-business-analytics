@@ -1,0 +1,26 @@
+{
+  "task_id": "hard_001",
+  "difficulty": "hard",
+  "business_question": "Identify declining customer segment and recommend action",
+  "dataset_schema": {
+    "segment": "string",
+    "month": "datetime",
+    "revenue": "float"
+  },
+  "sample_data": [
+    {"segment": "SMB", "month": "2025-01", "revenue": 5000},
+    {"segment": "SMB", "month": "2025-02", "revenue": 4200},
+    {"segment": "Enterprise", "month": "2025-01", "revenue": 9000},
+    {"segment": "Enterprise", "month": "2025-02", "revenue": 9400}
+  ],
+  "available_metrics": ["revenue_trend"],
+  "constraints": ["monthly_comparison"],
+  "ground_truth": {
+    "kpis": ["revenue_trend"],
+    "filters": {},
+    "aggregation": "trend",
+    "group_by": ["segment"],
+    "expected_answer": "SMB segment declining",
+    "expected_recommendation": "investigate SMB churn and improve retention"
+  }
+}

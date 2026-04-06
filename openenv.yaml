@@ -1,0 +1,26 @@
+name: openenv-business-analytics
+description: Business analytics decision-making environment for training AI agents
+version: 0.1.0
+
+entry_point: environment:BusinessAnalyticsEnv
+tasks:
+  - id: easy_001
+    description: Identify highest revenue segment
+    difficulty: easy
+
+  - id: medium_001
+    description: Compare performance across segments
+    difficulty: medium
+
+  - id: hard_001
+    description: Identify declining customer segment and recommend action
+    difficulty: hard
+
+observation_space:
+  type: Observation
+
+action_space:
+  type: Action
+
+reward_space:
+  type: Reward

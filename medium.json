@@ -1,0 +1,28 @@
+{
+  "task_id": "medium_001",
+  "difficulty": "medium",
+  "business_question": "Calculate churn rate for premium users in last 30 days",
+  "dataset_schema": {
+    "user_id": "int",
+    "plan": "string",
+    "status": "string",
+    "date": "datetime"
+  },
+  "sample_data": [
+    {"user_id": 1, "plan": "premium", "status": "active", "date": "2025-01-01"},
+    {"user_id": 2, "plan": "premium", "status": "churned", "date": "2025-01-05"},
+    {"user_id": 3, "plan": "basic", "status": "active", "date": "2025-01-07"}
+  ],
+  "available_metrics": ["churn_rate"],
+  "constraints": ["premium_users", "last_30_days"],
+  "ground_truth": {
+    "kpis": ["churn_rate"],
+    "filters": {
+      "plan": "premium",
+      "date": "last_30_days"
+    },
+    "aggregation": "percentage",
+    "group_by": [],
+    "expected_answer": "churned premium users / total premium users"
+  }
+}
