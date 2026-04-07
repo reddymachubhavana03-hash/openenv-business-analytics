@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
+from typing import Optional
 
 from environment import BusinessAnalyticsEnv
 from models import Action
@@ -12,31 +12,46 @@ env = BusinessAnalyticsEnv()
 @app.post("/reset")
 def reset():
     observation = env.reset()
-    return observation.dict()
+    return {
+        "task_id": observation.task_id,
+        "difficulty": observation.difficulty,
+        "business_question": observation.business_question,
+        "dataset_schema": observation.dataset_schema,
+        "sample_data": observation.sample_data,
+        "available_metrics": observation.available_metrics,
+        "constraints": observation.constraints,
+    }
 
-
-from typing import Optional
 
 @app.post("/step")
 def step(action: Optional[Action] = None):
+
     if action is None:
-        # fallback dummy action so validator doesn't crash
         action = Action(
             kpis=["revenue"],
             filters={},
             aggregation="sum",
             group_by=["segment"],
-            reasoning="default fallback",
+            reasoning="fallback",
             final_answer="fallback",
             recommendation="fallback"
         )
 
     observation, reward, done = env.step(action)
+
     return {
-        "observation": observation,
-        "reward": reward,
+        "observation": {
+            "task_id": observation.task_id,
+            "difficulty": observation.difficulty,
+            "business_question": observation.business_question,
+            "dataset_schema": observation.dataset_schema,
+            "sample_data": observation.sample_data,
+            "available_metrics": observation.available_metrics,
+            "constraints": observation.constraints,
+        },
+        "reward": reward.dict(),
         "done": done,
-        "info": env.state()
+        "info": env.state(),
     }
 
 
